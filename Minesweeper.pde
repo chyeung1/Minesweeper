@@ -131,7 +131,6 @@ public class MSButton
         }
       clicked = true;
       totalClear++;
-      System.out.println(totalClear);
       }
        if(mouseButton == RIGHT && !clicked){
         flagged = !flagged;
