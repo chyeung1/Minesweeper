@@ -199,7 +199,7 @@ public class MSButton
       clicked = true;
       totalClear++;
       }
-       if(mouseButton == RIGHT && !clicked){
+       if(mouseButton == RIGHT && !clicked && !(myLabel.equals("L") || myLabel.equals("W"))){
         flagged = !flagged;
         if(!flagged){
         clicked = false;
