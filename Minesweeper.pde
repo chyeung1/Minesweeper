@@ -108,6 +108,7 @@ public void displayLosingMessage()
         } else {
          buttons[i][j].setLabel("L"); 
         }
+noLoop();
 }
 public void displayWinningMessage()
 {
