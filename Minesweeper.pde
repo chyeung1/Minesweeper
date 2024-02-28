@@ -1,7 +1,8 @@
 import de.bezier.guido.*;
-public final static int NUM_ROWS = 10;
-public final static int NUM_COLS = 8;
-public final static int NUM_MINES = 10;
+public int NUM_ROWS = 10;
+public int NUM_COLS = 8;
+public int NUM_MINES = 10;
+public String difficulty = "easy";
 public int totalClear = 0;
 public int totalFlagged = 0;
 public float time = 0;
@@ -18,6 +19,9 @@ void setup ()
     Interactive.make( this );
    // System.out.println(countMines(1, 1));
     //your code to initialize buttons goes here
+    createButtons();
+}
+public void createButtons(){
     buttons = new MSButton[NUM_ROWS][NUM_COLS];
     for(int i = 0; i < NUM_ROWS; i++){
       for(int j = 0; j < NUM_COLS; j++){
@@ -59,22 +63,27 @@ public void draw ()
     time += frameRate/3600;
     fill(0);
     textSize(20);
+    //timer
     text("timer: " + (int)time, 50, 450);
+    //flags
     text("flags: " + (NUM_MINES - totalFlagged), 150, 450);
+    //reset button and difficult button
     fill(120);
-    rect(400, 430, 80, 30);
+    rect(400, 435, 80, 30);
+    rect(270, 435, 120, 30);
     fill(0);
     textSize(30);
-    text("reset", 440, 440);
+    text(difficulty, 330, 445);
+    text("reset", 440, 445);
 }
 
-public void reset(){
+public void reset(int r, int c){
   time = 0;
   totalFlagged = 0;
   totalClear = 0;
   firstClick = true;
-  for(int i = 0; i < NUM_ROWS; i++){
-    for(int j = 0; j < NUM_COLS; j++){
+  for(int i = 0; i < r; i++){
+    for(int j = 0; j < c; j++){
         buttons[i][j].clicked = false;
         buttons[i][j].flagged = false;
         buttons[i][j].setLabel("");
@@ -86,9 +95,7 @@ public void reset(){
 public boolean isWon()
 {
     //your code here
-    if(totalClear == NUM_ROWS * NUM_COLS - NUM_MINES)
-    return true;
-    return false;
+    return totalClear == NUM_ROWS * NUM_COLS - NUM_MINES;
 }
 public void displayLosingMessage()
 {
@@ -131,8 +138,34 @@ public int countMines(int row, int col)
 }
 //ui control stuff
 public void mousePressed(){
-  if(mouseX >= 400 && mouseX <= 480 && mouseY >= 430 && mouseY <= 460)
-  reset();
+  if(mouseX >= 400 && mouseX <= 480 && mouseY >= 435 && mouseY <= 465)
+  reset(NUM_ROWS, NUM_COLS);
+ /* if(mouseX >= 270 && mouseX <= 390 && mouseY >= 435 && mouseY <= 465){
+  if(difficulty.equals("easy")){
+    difficulty = "medium";
+    NUM_MINES = 40;
+    NUM_ROWS = 14;
+    NUM_COLS = 18;
+    reset(10, 8);
+    createButtons();
+  }
+  else if(difficulty.equals("medium")){
+    difficulty = "hard";
+    NUM_MINES = 99;
+    NUM_ROWS = 20;
+    NUM_COLS = 24;
+    reset(14, 18);
+    createButtons();
+  }
+  else{
+      difficulty = "easy";
+      NUM_MINES = 10;
+      NUM_ROWS = 10;
+      NUM_COLS = 8;
+      reset(20, 24);
+      createButtons();
+    }
+  }*/
 }
 //actually useful minesweeper stuff
 public class MSButton
