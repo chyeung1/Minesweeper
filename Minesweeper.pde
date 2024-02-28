@@ -3,13 +3,15 @@ public final static int NUM_ROWS = 10;
 public final static int NUM_COLS = 8;
 public final static int NUM_MINES = 10;
 public int totalClear = 0;
+public int totalFlagged = 0;
+public float time = 0;
 public boolean firstClick = true;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList<MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
 void setup ()
 {
-    size(400, 400);
+    size(500, 500);
     textAlign(CENTER,CENTER);
     
     // make the manager
@@ -49,11 +51,37 @@ public void setMines(int r, int c)
 
 public void draw ()
 {
-    background( 0 );
-    if(isWon() == true){
+    background(17, 35, 128);
+    if(isWon()){
         displayWinningMessage();
         noLoop();
     }
+    time += frameRate/3600;
+    fill(0);
+    textSize(20);
+    text("timer: " + (int)time, 50, 450);
+    text("flags: " + (NUM_MINES - totalFlagged), 150, 450);
+    fill(120);
+    rect(400, 430, 80, 30);
+    fill(0);
+    textSize(30);
+    text("reset", 440, 440);
+}
+
+public void reset(){
+  time = 0;
+  totalFlagged = 0;
+  totalClear = 0;
+  firstClick = true;
+  for(int i = 0; i < NUM_ROWS; i++){
+    for(int j = 0; j < NUM_COLS; j++){
+        buttons[i][j].clicked = false;
+        buttons[i][j].flagged = false;
+        buttons[i][j].setLabel("");
+        mines.clear();
+      }
+    }
+    loop();
 }
 public boolean isWon()
 {
@@ -101,6 +129,12 @@ public int countMines(int row, int col)
    }
   return numMines;
 }
+//ui control stuff
+public void mousePressed(){
+  if(mouseX >= 400 && mouseX <= 480 && mouseY >= 430 && mouseY <= 460)
+  reset();
+}
+//actually useful minesweeper stuff
 public class MSButton
 {
     private int myRow, myCol;
@@ -124,7 +158,7 @@ public class MSButton
     // this is certainly one of the functions of all time
     public void mousePressed () 
     {
-      if(!flagged && !(myLabel.equals("L") || myLabel.equals("W")) && !mines.contains(this) && !clicked) {
+      if(!flagged && !(myLabel.equals("L") || myLabel.equals("W")) && !mines.contains(this) && !clicked && !(mouseButton == RIGHT)) {
         if(firstClick){
           setMines(myRow, myCol);
           firstClick = false;
@@ -136,8 +170,10 @@ public class MSButton
         flagged = !flagged;
         if(!flagged){
         clicked = false;
+        totalFlagged-- ;
         setLabel("");
-        }
+        } else if(flagged)
+        totalFlagged++;
       } else if(!flagged && mines.contains(this)) {
       displayLosingMessage();
       } else if(countMines(myRow, myCol) > 0 && !(myLabel.equals("L") || myLabel.equals("W"))){
