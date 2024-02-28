@@ -60,6 +60,7 @@ public void draw ()
         displayWinningMessage();
         noLoop();
     }
+    if(!firstClick)
     time += frameRate/3600;
     fill(0);
     textSize(20);
