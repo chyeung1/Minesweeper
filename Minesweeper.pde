@@ -1,7 +1,7 @@
 import de.bezier.guido.*;
-public int NUM_ROWS = 10;
-public int NUM_COLS = 8;
-public int NUM_MINES = 10;
+public int NUM_ROWS = 20;
+public int NUM_COLS = 24;
+public int NUM_MINES = 99;
 public String difficulty = "easy";
 public int totalClear = 0;
 public int totalFlagged = 0;
@@ -108,7 +108,6 @@ public void displayLosingMessage()
         } else {
          buttons[i][j].setLabel("L"); 
         }
-noLoop();
 }
 public void displayWinningMessage()
 {
