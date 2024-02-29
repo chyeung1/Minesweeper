@@ -17,7 +17,6 @@ void setup ()
     
     // make the manager
     Interactive.make( this );
-   // System.out.println(countMines(1, 1));
     //your code to initialize buttons goes here
     createButtons();
 }
@@ -108,7 +107,6 @@ public void displayLosingMessage()
         } else {
          buttons[i][j].setLabel("L"); 
         }
-        noLoop();
 }
 public void displayWinningMessage()
 {
@@ -142,8 +140,8 @@ public int countMines(int row, int col)
 public void mousePressed(){
   if(mouseX >= 400 && mouseX <= 480 && mouseY >= 435 && mouseY <= 465)
   reset(NUM_ROWS, NUM_COLS);
- /* if(mouseX >= 270 && mouseX <= 390 && mouseY >= 435 && mouseY <= 465){
-  if(difficulty.equals("easy")){
+  if(mouseX >= 270 && mouseX <= 390 && mouseY >= 435 && mouseY <= 465){
+ /* if(difficulty.equals("easy")){
     difficulty = "medium";
     NUM_MINES = 40;
     NUM_ROWS = 14;
@@ -166,8 +164,8 @@ public void mousePressed(){
       NUM_COLS = 8;
       reset(20, 24);
       createButtons();
-    }
-  }*/
+    }*/
+  }
 }
 //actually useful minesweeper stuff
 public class MSButton
@@ -179,8 +177,8 @@ public class MSButton
     
     public MSButton ( int row, int col )
     {
-        width = 400/NUM_COLS;
-        height = 400/NUM_ROWS;
+        width = 432/NUM_COLS;
+        height = 420/NUM_ROWS;
         myRow = row;
         myCol = col; 
         x = myCol*width;
@@ -211,6 +209,7 @@ public class MSButton
         totalFlagged++;
       } else if(!flagged && mines.contains(this)) {
       displayLosingMessage();
+      noLoop();
       } else if(countMines(myRow, myCol) > 0 && !(myLabel.equals("L") || myLabel.equals("W"))){
        setLabel(countMines(myRow, myCol));
       } else if(!flagged){
