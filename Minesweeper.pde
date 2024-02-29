@@ -56,10 +56,11 @@ public void setMines(int r, int c)
 public void draw ()
 {
     background(17, 35, 128);
-    if(isWon() || tookTheL){
+    if(isWon()){
         displayWinningMessage();
         noLoop();
-    }
+    } else if(tookTheL)
+    noLoop();
     if(!firstClick)
     time += frameRate/3600;
     fill(0);
@@ -83,6 +84,7 @@ public void reset(int r, int c){
   totalFlagged = 0;
   totalClear = 0;
   firstClick = true;
+  tookTheL = false;
   for(int i = 0; i < r; i++){
     for(int j = 0; j < c; j++){
         buttons[i][j].clicked = false;
