@@ -5,9 +5,9 @@ public int NUM_MINES = 10; //99;
 public String difficulty = "easy";
 public int totalClear = 0;
 public int totalFlagged = 0;
-public boolean tookTheL = false;
 public float time = 0;
 public boolean firstClick = true;
+public boolean pleaseWork = false;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList<MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
@@ -59,9 +59,8 @@ public void draw ()
     if(isWon()){
         displayWinningMessage();
         noLoop();
-    } else if(tookTheL)
-    noLoop();
-    if(!firstClick)
+    }
+    if(!pleaseWork)
     time += frameRate/3600;
     fill(0);
     textSize(20);
@@ -84,7 +83,7 @@ public void reset(int r, int c){
   totalFlagged = 0;
   totalClear = 0;
   firstClick = true;
-  tookTheL = false;
+  pleaseWork = false;
   for(int i = 0; i < r; i++){
     for(int j = 0; j < c; j++){
         buttons[i][j].clicked = false;
@@ -107,10 +106,12 @@ public void displayLosingMessage()
       for(int j = 0; j < NUM_COLS; j++)
         if(mines.contains(buttons[i][j])) {
           buttons[i][j].clicked = true;
-        } else {
+        } else if(buttons[i][j].flagged) {
+         buttons[i][j].flagged = false;
          buttons[i][j].setLabel("L"); 
-        }
-    tookTheL = true;
+        } else 
+         buttons[i][j].setLabel("L"); 
+   pleaseWork = true;
 }
 public void displayWinningMessage()
 {
@@ -213,7 +214,6 @@ public class MSButton
         totalFlagged++;
       } else if(!flagged && mines.contains(this)) {
       displayLosingMessage();
-      noLoop();
       } else if(countMines(myRow, myCol) > 0 && !(myLabel.equals("L") || myLabel.equals("W"))){
        setLabel(countMines(myRow, myCol));
       } else if(!flagged){
