@@ -74,8 +74,8 @@ public void draw ()
     rect(270, 435, 120, 30);
     fill(0);
     textSize(30);
-    text(difficulty, 330, 445);
-    text("reset", 440, 445);
+    text(difficulty, 330, 450);
+    text("reset", 440, 450);
 }
 
 public void reset(int r, int c){
