@@ -5,6 +5,7 @@ public int NUM_MINES = 10; //99;
 public String difficulty = "easy";
 public int totalClear = 0;
 public int totalFlagged = 0;
+public boolean tookTheL = false;
 public float time = 0;
 public boolean firstClick = true;
 private MSButton[][] buttons; //2d array of minesweeper buttons
@@ -55,7 +56,7 @@ public void setMines(int r, int c)
 public void draw ()
 {
     background(17, 35, 128);
-    if(isWon()){
+    if(isWon() || tookTheL){
         displayWinningMessage();
         noLoop();
     }
@@ -107,6 +108,7 @@ public void displayLosingMessage()
         } else {
          buttons[i][j].setLabel("L"); 
         }
+    tookTheL = true;
 }
 public void displayWinningMessage()
 {
