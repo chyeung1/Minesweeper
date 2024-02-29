@@ -1,7 +1,7 @@
 import de.bezier.guido.*;
-public int NUM_ROWS = 20;
-public int NUM_COLS = 24;
-public int NUM_MINES = 99;
+public int NUM_ROWS = 10; //20;
+public int NUM_COLS = 8; //24;
+public int NUM_MINES = 10; //99;
 public String difficulty = "easy";
 public int totalClear = 0;
 public int totalFlagged = 0;
@@ -108,6 +108,7 @@ public void displayLosingMessage()
         } else {
          buttons[i][j].setLabel("L"); 
         }
+        noLoop();
 }
 public void displayWinningMessage()
 {
@@ -245,6 +246,7 @@ public class MSButton
 
         rect(x, y, width, height);
         fill(0);
+        textSize(10);
         text(myLabel,x+width/2,y+height/2);
     }
     public void setLabel(String newLabel)
