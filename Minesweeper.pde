@@ -249,7 +249,7 @@ public class MSButton
 
         rect(x, y, width, height);
         fill(0);
-        textSize(10);
+        textSize(25);
         text(myLabel,x+width/2,y+height/2);
     }
     public void setLabel(String newLabel)
