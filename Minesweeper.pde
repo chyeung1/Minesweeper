@@ -2,7 +2,7 @@ import de.bezier.guido.*;
 public int NUM_ROWS = 10; //20;
 public int NUM_COLS = 8; //24;
 public int NUM_MINES = 10; //99;
-public String difficulty = "easy";
+//public String difficulty = "easy";
 public int totalClear = 0;
 public int totalFlagged = 0;
 public float time = 0;
